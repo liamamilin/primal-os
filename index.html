@@ -1,0 +1,2712 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Primal OS · 原始人认知语言体系</title>
+  <meta name="description" content="用狩猎与农耕的物理直觉，给现代大脑做一次认知降维与情绪去噪。交互式翻页认知实验与生存石板工作台。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Primal OS · 原始人认知语言体系" />
+  <meta property="og:description" content="如果我只是一个原始人，日子一下子就变得好单纯。用狩猎与农耕的物理直觉，给现代大脑做一次认知降维与情绪去噪。" />
+  <meta property="og:image" content="./assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23161412'/%3E%3Cpath d='M32 10 L46 34 L38 46 L26 46 L18 34 Z' fill='%23D97736'/%3E%3Cpath d='M32 22 L40 36 L35 44 L29 44 L24 36 Z' fill='%23F6C36B'/%3E%3Cpath d='M16 48 L48 54 M48 48 L16 54' stroke='%23A85E34' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --bg: #F6F1E9;
+      --bg-elev: #FDFBF7;
+      --bg-soft: #EDE5D8;
+      --text: #241F1B;
+      --text-muted: #6C6156;
+      --text-faint: #9A8D7F;
+      --border: rgba(36, 31, 27, 0.12);
+      --border-strong: rgba(36, 31, 27, 0.24);
+      --accent: #C25934;
+      --accent-soft: rgba(194, 89, 52, 0.12);
+      --accent-glow: rgba(194, 89, 52, 0.28);
+      --gold: #B67D2C;
+      --sage: #4B7255;
+      --danger: #B83A3A;
+      --shadow-sm: 0 2px 10px rgba(36, 31, 27, 0.05);
+      --shadow-md: 0 12px 32px rgba(36, 31, 27, 0.09);
+      --font-serif: "Songti SC", "Noto Serif SC", "Source Han Serif SC", "STSong", Georgia, serif;
+      --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --radius: 14px;
+      --header-h: 64px;
+    }
+
+    [data-theme="dark"] {
+      --bg: #141210;
+      --bg-elev: #1C1916;
+      --bg-soft: #25201C;
+      --text: #F2EAE1;
+      --text-muted: #AEA194;
+      --text-faint: #776B60;
+      --border: rgba(242, 234, 225, 0.10);
+      --border-strong: rgba(242, 234, 225, 0.22);
+      --accent: #E07A42;
+      --accent-soft: rgba(224, 122, 66, 0.15);
+      --accent-glow: rgba(224, 122, 66, 0.35);
+      --gold: #E8B45E;
+      --sage: #6E9E7A;
+      --danger: #E05C5C;
+      --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.32);
+      --shadow-md: 0 16px 40px rgba(0, 0, 0, 0.48);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.35s ease, color 0.35s ease;
+      overflow-x: hidden;
+    }
+
+    /* Subtle stone/paper grain */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    button, input, textarea, select {
+      font-family: inherit;
+      color: inherit;
+    }
+    button { cursor: pointer; background: none; border: none; }
+
+    /* Entrance Ritual Overlay */
+    #entrance-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: radial-gradient(circle at 50% 42%, rgba(224, 122, 66, 0.16), transparent 58%), var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      transition: opacity 0.65s ease, transform 0.65s ease, visibility 0.65s;
+    }
+    #entrance-overlay.hidden {
+      opacity: 0;
+      transform: scale(1.03);
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .entrance-totem {
+      width: 118px;
+      height: 118px;
+      margin-bottom: 24px;
+      animation: breathe 3.6s ease-in-out infinite;
+      filter: drop-shadow(0 0 24px var(--accent-glow));
+    }
+    @keyframes breathe {
+      0%, 100% { transform: scale(1) translateY(0); }
+      50% { transform: scale(1.05) translateY(-4px); }
+    }
+    .entrance-kicker {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .entrance-title {
+      font-family: var(--font-serif);
+      font-size: clamp(30px, 5vw, 48px);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 14px;
+    }
+    .entrance-lyric {
+      font-family: var(--font-serif);
+      font-size: clamp(15px, 2.2vw, 18px);
+      color: var(--text-muted);
+      max-width: 460px;
+      margin-bottom: 34px;
+    }
+    .entrance-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 32px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #FFF9F2;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      box-shadow: 0 10px 28px var(--accent-glow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .entrance-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 36px var(--accent-glow);
+    }
+    .entrance-sub-actions {
+      margin-top: 20px;
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: center;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .entrance-sub-btn {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .entrance-sub-btn:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    /* Sticky Header */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-h);
+      background: color-mix(in srgb, var(--bg) 86%, transparent);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(12px, 3vw, 28px);
+      gap: 10px;
+    }
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg-elev);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      flex-shrink: 0;
+    }
+    .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .icon-btn.active { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .brand-name {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.04em;
+    }
+    .brand-ver {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      padding: 1px 6px;
+      border-radius: 6px;
+      background: var(--accent-soft);
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Floating Music Capsule */
+    .music-capsule {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px 4px 8px;
+      height: 36px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-elev);
+      font-size: 12px;
+    }
+    .viz-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 16px;
+      width: 22px;
+      padding: 0 1px;
+    }
+    .viz-bar {
+      width: 3px;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--accent);
+      transition: height 0.08s linear;
+    }
+    .music-title {
+      max-width: 92px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .mini-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      transition: color 0.15s, background 0.15s;
+    }
+    .mini-btn:hover, .mini-btn.active {
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .progress-track {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 2px;
+      background: transparent;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 20%;
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+      transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Drawer */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: rgba(0, 0, 0, 0.48);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s;
+    }
+    .drawer-backdrop.open { opacity: 1; visibility: visible; }
+    .drawer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: min(320px, 86vw);
+      z-index: 301;
+      background: var(--bg-elev);
+      border-right: 1px solid var(--border);
+      padding: 24px 20px;
+      transform: translateX(-100%);
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .drawer.open { transform: translateX(0); }
+    .drawer-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .drawer-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+    .drawer-item {
+      text-align: left;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .drawer-item:hover { background: var(--bg-soft); }
+    .drawer-item.active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+    }
+    .drawer-num {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .drawer-item-title { font-weight: 600; font-size: 14px; display: block; }
+    .drawer-item-sub { font-size: 12px; color: var(--text-muted); display: block; }
+
+    /* Main Stage */
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: clamp(24px, 4vw, 44px) clamp(16px, 3vw, 28px) 108px;
+      min-height: calc(100vh - var(--header-h));
+    }
+    .chapter {
+      display: none;
+      animation: fadeSlide 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .chapter.active { display: block; }
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .chap-header {
+      margin-bottom: 28px;
+    }
+    .chap-kicker {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .chap-title {
+      font-family: var(--font-serif);
+      font-size: clamp(26px, 4.2vw, 38px);
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+    .chap-lead {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 680px;
+    }
+
+    .card {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: clamp(18px, 3vw, 26px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .pill-btn {
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-elev);
+      font-size: 13px;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+    .pill-btn:hover { border-color: var(--accent); color: var(--text); }
+    .pill-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #FFF9F2;
+      font-weight: 600;
+    }
+
+    /* Chapter 1: Cave Vision */
+    .vision-stage {
+      position: relative;
+      min-height: 300px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 20px;
+      margin-bottom: 18px;
+    }
+    .vision-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 28px 28px;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+    }
+    .vision-glow {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-glow), transparent 68%);
+      pointer-events: none;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .vision-core {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      pointer-events: none;
+    }
+    .vision-svg-wrap {
+      width: 84px;
+      height: 84px;
+      margin: 0 auto 10px;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+    }
+    .vision-word-modern {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-decoration: line-through;
+      opacity: 0.7;
+    }
+    .vision-word-primal {
+      font-family: var(--font-serif);
+      font-size: clamp(32px, 5vw, 46px);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--text);
+    }
+    .vision-bubble-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+    }
+    .noise-bubble {
+      position: absolute;
+      pointer-events: auto;
+      padding: 6px 13px;
+      border-radius: 999px;
+      background: var(--bg-elev);
+      border: 1px solid var(--border-strong);
+      font-size: 12px;
+      color: var(--text-muted);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.2s, opacity 0.3s, border-color 0.2s;
+      animation: floatBubble 4.5s ease-in-out infinite;
+    }
+    .noise-bubble:hover {
+      border-color: var(--danger);
+      color: var(--danger);
+      transform: scale(1.08);
+    }
+    .noise-bubble.popped {
+      transform: scale(1.5);
+      opacity: 0 !important;
+      pointer-events: none;
+    }
+    @keyframes floatBubble {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+    .particle-dot {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      pointer-events: none;
+      z-index: 10;
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
+    }
+
+    .slider-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .slider-wrap input[type="range"] {
+      flex: 1;
+      accent-color: var(--accent);
+      height: 6px;
+      cursor: pointer;
+    }
+    .gauges-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .gauge-box {
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+      transition: border-color 0.3s, opacity 0.3s;
+    }
+    .gauge-label { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+    .gauge-val { font-family: var(--font-serif); font-size: 18px; font-weight: 700; color: var(--accent); }
+    .gauge-desc { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+    /* Chapter 2: Anvil Forge */
+    .anvil-stage {
+      position: relative;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--bg-soft), var(--bg-elev));
+      padding: 32px 20px 24px;
+      text-align: center;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+    .shame-stamp {
+      display: inline-block;
+      padding: 5px 14px;
+      border: 2px solid var(--danger);
+      color: var(--danger);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      border-radius: 6px;
+      transform: rotate(-5deg);
+      margin-bottom: 14px;
+      transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .shame-stamp.cracked { opacity: 0.5; transform: rotate(-10deg) scale(0.95); border-style: dashed; }
+    .shame-stamp.shattered { opacity: 0; transform: rotate(-18deg) scale(1.35); filter: blur(4px); }
+    .anvil-word {
+      font-family: var(--font-serif);
+      font-size: clamp(26px, 4.4vw, 38px);
+      font-weight: 700;
+      margin-bottom: 8px;
+      transition: color 0.3s;
+    }
+    .anvil-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      min-height: 24px;
+    }
+    .runes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .rune-btn {
+      padding: 16px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg-elev);
+      text-align: left;
+      transition: all 0.25s;
+    }
+    .rune-btn:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .rune-btn.struck {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      box-shadow: 0 6px 20px var(--accent-glow);
+    }
+    .rune-tag { font-family: var(--font-mono); font-size: 11px; color: var(--accent); margin-bottom: 4px; }
+    .rune-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+    .rune-desc { font-size: 12px; color: var(--text-muted); }
+
+    /* Chapter 3: Territory Map & 3D Flip Cards */
+    .territory-map {
+      width: 100%;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+    .map-svg {
+      width: 100%;
+      height: auto;
+      max-height: 210px;
+      display: block;
+    }
+    .map-zone {
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .map-zone:hover .zone-shape { stroke: var(--accent); stroke-width: 2.2; }
+    .map-zone.active .zone-shape { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2.4; }
+
+    .lexicon-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .search-input {
+      flex: 1;
+      min-width: 220px;
+      padding: 9px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg-elev);
+      font-size: 14px;
+      outline: none;
+    }
+    .search-input:focus { border-color: var(--accent); }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .flip-card {
+      perspective: 900px;
+      height: 178px;
+      cursor: pointer;
+    }
+    .flip-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+      transform-style: preserve-3d;
+    }
+    .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+    .flip-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 13px;
+      border: 1px solid var(--border);
+      background: var(--bg-elev);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+    }
+    .flip-back {
+      transform: rotateY(180deg);
+      background: linear-gradient(155deg, var(--bg-elev), var(--accent-soft));
+      border-color: var(--accent);
+    }
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      font-size: 11px;
+    }
+    .quad-badge {
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: var(--bg-soft);
+      color: var(--text-muted);
+    }
+    .lyric-badge {
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .card-primal {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .card-modern {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .card-anchor {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--text);
+    }
+    .card-hint {
+      font-size: 11px;
+      color: var(--text-faint);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .forge-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .field-input {
+      padding: 9px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      font-size: 13px;
+      outline: none;
+    }
+    .field-input:focus { border-color: var(--accent); }
+    .primary-btn {
+      padding: 10px 18px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #FFF9F2;
+      font-size: 13px;
+      font-weight: 600;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .primary-btn:hover { opacity: 0.92; transform: translateY(-1px); }
+    .secondary-btn {
+      padding: 10px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-elev);
+      font-size: 13px;
+      font-weight: 500;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .secondary-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Chapter 4: Campfire Canvas & 6 Verbs */
+    .canvas-shell {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #0F0D0B;
+      margin-bottom: 16px;
+    }
+    #camp-canvas {
+      display: block;
+      width: 100%;
+      height: 290px;
+    }
+    .camp-hud {
+      position: absolute;
+      top: 12px;
+      left: 14px;
+      right: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: rgba(242, 234, 225, 0.82);
+    }
+    .hud-tag {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(20, 18, 16, 0.65);
+      border: 1px solid rgba(242, 234, 225, 0.16);
+      backdrop-filter: blur(6px);
+    }
+    .sim-sliders {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .sim-control {
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+    }
+    .sim-control-head {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .sim-control input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+    .directive-banner {
+      padding: 16px 18px;
+      border-radius: 12px;
+      border-left: 4px solid var(--accent);
+      background: var(--accent-soft);
+      margin-bottom: 18px;
+    }
+    .directive-title {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .directive-body { font-size: 13px; color: var(--text-muted); }
+
+    .verbs-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .verb-btn {
+      padding: 12px 8px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg-elev);
+      text-align: center;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .verb-btn:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .verb-btn.recommended {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 1px var(--gold) inset;
+    }
+    .verb-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #FFF9F2;
+    }
+    .verb-char { font-family: var(--font-serif); font-size: 18px; font-weight: 700; display: block; }
+    .verb-en { font-family: var(--font-mono); font-size: 10px; opacity: 0.72; }
+    .verb-rec-dot {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .verb-protocol {
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+      font-size: 13px;
+    }
+
+    /* Chapter 5: Dual System & Stone Tablet */
+    .dual-card {
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--bg-elev);
+      padding: 18px 20px;
+      margin-bottom: 20px;
+    }
+    .dual-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .dual-motto {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border-strong);
+      font-family: var(--font-serif);
+      font-size: 14px;
+      color: var(--accent);
+    }
+
+    .tablet-workspace {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 26px;
+    }
+    .textarea-box {
+      width: 100%;
+      min-height: 92px;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      font-size: 14px;
+      resize: vertical;
+      outline: none;
+      line-height: 1.6;
+    }
+    .textarea-box:focus { border-color: var(--accent); }
+    .capsule-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0 14px;
+    }
+    .word-cap {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+      font-size: 12px;
+      transition: all 0.15s;
+    }
+    .word-cap:hover { border-color: var(--accent); color: var(--accent); }
+    .word-cap.verb { border-color: rgba(224, 122, 66, 0.38); color: var(--accent); }
+
+    .stone-preview {
+      border-radius: 16px;
+      padding: 26px 24px;
+      background: linear-gradient(160deg, #211D19, #151210);
+      color: #F2EAE1;
+      border: 1px solid rgba(232, 180, 94, 0.28);
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+    .stone-preview::before {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border: 1px solid rgba(232, 180, 94, 0.14);
+      border-radius: 10px;
+      pointer-events: none;
+    }
+    .stone-kicker {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      color: #E8B45E;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .stone-modern-quote {
+      font-size: 12px;
+      color: #9E9184;
+      border-left: 2px solid rgba(224, 122, 66, 0.45);
+      padding-left: 10px;
+      margin-bottom: 16px;
+      white-space: pre-wrap;
+    }
+    .stone-primal-body {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      line-height: 1.8;
+      color: #FAF4EC;
+      margin-bottom: 20px;
+      white-space: pre-wrap;
+      min-height: 86px;
+    }
+    .stone-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: #A89A8D;
+      border-top: 1px solid rgba(242, 234, 225, 0.12);
+      padding-top: 12px;
+    }
+
+    .cave-wall-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .wall-item {
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg-elev);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .wall-date { font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); }
+    .wall-text { font-family: var(--font-serif); font-size: 14px; line-height: 1.6; white-space: pre-wrap; }
+    .wall-actions { display: flex; gap: 8px; margin-top: auto; padding-top: 8px; }
+
+    /* Bottom Pagination */
+    .pager {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 90;
+      background: color-mix(in srgb, var(--bg) 90%, transparent);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid var(--border);
+      padding: 12px clamp(16px, 3vw, 28px);
+    }
+    .pager-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .pager-btn {
+      padding: 9px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg-elev);
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+    .pager-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .pager-center {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 76px;
+      left: 50%;
+      transform: translateX(-50%) translateY(16px);
+      background: var(--text);
+      color: var(--bg);
+      padding: 9px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s, transform 0.25s;
+      z-index: 1500;
+      white-space: nowrap;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 780px) {
+      .gauges-grid, .runes-grid { grid-template-columns: 1fr; }
+      .verbs-grid { grid-template-columns: repeat(3, 1fr); }
+      .tablet-workspace { grid-template-columns: 1fr; }
+      .music-title { display: none; }
+      .brand-ver { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hidden Audio & File Picker -->
+  <audio id="bgm-audio" src="./assets/primal-bgm.mp3" loop preload="metadata" crossorigin="anonymous"></audio>
+  <input id="local-audio-input" type="file" accept="audio/*" style="display:none" />
+
+  <!-- Entrance Ritual Overlay -->
+  <div id="entrance-overlay" role="dialog" aria-label="进入洞穴封面">
+    <svg class="entrance-totem" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="60" cy="60" r="54" stroke="currentColor" stroke-opacity="0.16" stroke-width="1.5" stroke-dasharray="4 5"/>
+      <circle cx="60" cy="60" r="40" stroke="var(--accent)" stroke-opacity="0.35" stroke-width="1.5"/>
+      <path d="M60 18 L84 62 L72 80 L48 80 L36 62 Z" fill="var(--accent)"/>
+      <path d="M60 36 L73 62 L66 76 L54 76 L47 62 Z" fill="var(--gold)"/>
+      <path d="M28 86 L92 96 M92 86 L28 96" stroke="#9D5A35" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="44" cy="28" r="2.5" fill="var(--gold)"/>
+      <circle cx="78" cy="34" r="2" fill="var(--accent)"/>
+      <circle cx="62" cy="10" r="2" fill="var(--gold)"/>
+    </svg>
+    <div class="entrance-kicker">PRIMAL OS · v2.5 STUDIO</div>
+    <h1 class="entrance-title">原始人认知语言体系</h1>
+    <p class="entrance-lyric">“如果我只是一个原始人，日子一下子就变得好单纯。”<br/>用狩猎与农耕的物理直觉，给现代大脑做一次认知降维与情绪去噪。</p>
+    <button id="btn-enter-fire" class="entrance-cta">
+      <span>🔥 点燃篝火 · 进入洞穴</span>
+    </button>
+    <div class="entrance-sub-actions">
+      <button id="btn-enter-silent" class="entrance-sub-btn">静音进入</button>
+      <button id="btn-enter-local-audio" class="entrance-sub-btn">选择本地音频试听</button>
+    </div>
+  </div>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button id="btn-drawer" class="icon-btn" title="章节目录" aria-label="打开目录">☰</button>
+      <div class="brand">
+        <span class="brand-name">PRIMAL OS</span>
+        <span class="brand-ver">v2.5</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="music-capsule" title="背景音乐《原始人不慌》">
+        <div class="viz-bars" id="viz-bars">
+          <div class="viz-bar"></div><div class="viz-bar"></div><div class="viz-bar"></div><div class="viz-bar"></div><div class="viz-bar"></div>
+        </div>
+        <span class="music-title" id="music-title">原始人不慌</span>
+        <button id="btn-play" class="mini-btn" title="播放/暂停" aria-label="播放或暂停">▶</button>
+        <button id="btn-loop" class="mini-btn active" title="单曲循环" aria-label="单曲循环">↻</button>
+        <button id="btn-mute" class="mini-btn" title="静音" aria-label="静音">🔊</button>
+        <button id="btn-load-mp3" class="mini-btn" title="加载本地 MP3" aria-label="加载本地音频">📁</button>
+      </div>
+      <button id="btn-sfx" class="icon-btn active" title="石器微音效开关" aria-label="石器微音效">🪨</button>
+      <button id="btn-theme" class="icon-btn" title="切换亮暗主题" aria-label="切换主题">☀</button>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+  </header>
+
+  <!-- Drawer -->
+  <div class="drawer-backdrop" id="drawer-backdrop"></div>
+  <aside class="drawer" id="drawer" aria-label="章节目录">
+    <div class="drawer-head">
+      <strong style="font-family:var(--font-serif);font-size:17px;">认知章节导航</strong>
+      <button id="btn-close-drawer" class="icon-btn" aria-label="关闭目录">✕</button>
+    </div>
+    <nav class="drawer-nav" id="drawer-nav"></nav>
+    <div style="font-size:12px;color:var(--text-faint);border-top:1px solid var(--border);padding-top:12px;">
+      快捷键：键盘 ← / → 翻页<br/>移动端支持左右滑动切换章节
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main id="main-stage">
+    <!-- Chapter 1 -->
+    <section class="chapter active" data-chapter="0">
+      <div class="chap-header">
+        <div class="chap-kicker">CHAPTER 01 · COGNITIVE NOISE REDUCTION</div>
+        <h2 class="chap-title">洞穴视界：给现代词汇做一次物理去噪</h2>
+        <p class="chap-lead">现代词汇绑满了社会评价与隐形焦虑。点击击碎漂浮的焦虑气泡，或向右推动去噪滑块，把大脑拉回最真实的物理判断。</p>
+      </div>
+      <div class="card">
+        <div class="pill-row" id="c1-scenarios"></div>
+        <div class="vision-stage" id="vision-stage">
+          <div class="vision-grid-bg" id="vision-grid"></div>
+          <div class="vision-glow" id="vision-glow"></div>
+          <div class="vision-core">
+            <div class="vision-svg-wrap" id="vision-svg"></div>
+            <div class="vision-word-modern" id="vision-modern"></div>
+            <div class="vision-word-primal" id="vision-primal"></div>
+          </div>
+          <div class="vision-bubble-layer" id="vision-bubbles"></div>
+        </div>
+        <div class="slider-wrap">
+          <span style="font-size:12px;color:var(--text-muted);white-space:nowrap;">现代噪音</span>
+          <input type="range" id="c1-slider" min="0" max="100" value="15" />
+          <span style="font-family:var(--font-mono);font-size:13px;color:var(--accent);min-width:44px;text-align:right;" id="c1-pct">15%</span>
+        </div>
+        <div class="gauges-grid" id="c1-gauges"></div>
+      </div>
+    </section>
+
+    <!-- Chapter 2 -->
+    <section class="chapter" data-chapter="1">
+      <div class="chap-header">
+        <div class="chap-kicker">CHAPTER 02 · THREE FORGING PRINCIPLES</div>
+        <h2 class="chap-title">原始词汇打磨台：造词的三道石器滤网</h2>
+        <p class="chap-lead">好的原始词不是古风比喻，而是能触发身体反应的行动指令。选择一个现代内耗词，依次敲击三枚原则符文，粉碎道德羞耻感。</p>
+      </div>
+      <div class="card">
+        <div class="pill-row" id="c2-words"></div>
+        <div class="anvil-stage" id="anvil-stage">
+          <div class="shame-stamp" id="shame-stamp">自律不足</div>
+          <div class="anvil-word" id="anvil-word">拖延 / 精疲力竭</div>
+          <div class="anvil-sub" id="anvil-sub">依次点亮下方 3 枚符文，完成词汇开锋</div>
+        </div>
+        <div class="runes-grid" id="c2-runes"></div>
+        <div id="c2-result" style="padding:14px 16px;border-radius:12px;background:var(--bg-soft);border:1px solid var(--border);font-size:13px;color:var(--text-muted);">
+          等待敲击符文...
+        </div>
+      </div>
+    </section>
+
+    <!-- Chapter 3 -->
+    <section class="chapter" data-chapter="2">
+      <div class="chap-header">
+        <div class="chap-kicker">CHAPTER 03 · HUNTING &amp; FARMING LEXICON</div>
+        <h2 class="chap-title">生存领地图谱与 3D 词卡：狩猎 + 农耕双周期</h2>
+        <p class="chap-lead">短周期靠「狩猎」拿即时反馈，长周期靠「农耕」攒复利。点击等高线领地筛选，或点击任意词卡翻转查看底层认知锚点。</p>
+      </div>
+      <div class="territory-map">
+        <svg class="map-svg" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" stroke="currentColor" stroke-opacity="0.09" stroke-width="1">
+            <path d="M0 40 Q200 10 400 50 T800 35"/>
+            <path d="M0 95 Q220 130 440 85 T800 110"/>
+            <path d="M0 155 Q240 125 480 165 T800 150"/>
+          </g>
+          <g class="map-zone active" data-quad="all">
+            <rect class="zone-shape" x="14" y="16" width="110" height="168" rx="14" fill="var(--bg-elev)" stroke="var(--border-strong)" stroke-width="1.4"/>
+            <text x="69" y="96" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">全部领地</text>
+            <text x="69" y="118" text-anchor="middle" fill="var(--text-muted)" font-size="11">全览词库</text>
+          </g>
+          <g class="map-zone" data-quad="space">
+            <rect class="zone-shape" x="138" y="16" width="122" height="168" rx="14" fill="var(--bg-elev)" stroke="var(--border-strong)" stroke-width="1.4"/>
+            <text x="199" y="88" text-anchor="middle" fill="var(--accent)" font-size="18">⛺</text>
+            <text x="199" y="114" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="700">空间与安全</text>
+            <text x="199" y="134" text-anchor="middle" fill="var(--text-muted)" font-size="11">洞穴 · 篝火圈</text>
+          </g>
+          <g class="map-zone" data-quad="resource">
+            <rect class="zone-shape" x="274" y="16" width="122" height="168" rx="14" fill="var(--bg-elev)" stroke="var(--border-strong)" stroke-width="1.4"/>
+            <text x="335" y="88" text-anchor="middle" fill="var(--accent)" font-size="18">🍖</text>
+            <text x="335" y="114" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="700">资源与能量</text>
+            <text x="335" y="134" text-anchor="middle" fill="var(--text-muted)" font-size="11">干肉 · 柴火</text>
+          </g>
+          <g class="map-zone" data-quad="action">
+            <rect class="zone-shape" x="410" y="16" width="122" height="168" rx="14" fill="var(--bg-elev)" stroke="var(--border-strong)" stroke-width="1.4"/>
+            <text x="471" y="88" text-anchor="middle" fill="var(--accent)" font-size="18">🏹</text>
+            <text x="471" y="114" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="700">行动与目标</text>
+            <text x="471" y="134" text-anchor="middle" fill="var(--text-muted)" font-size="11">猎物 · 磨石斧</text>
+          </g>
+          <g class="map-zone" data-quad="tribe">
+            <rect class="zone-shape" x="546" y="16" width="114" height="168" rx="14" fill="var(--bg-elev)" stroke="var(--border-strong)" stroke-width="1.4"/>
+            <text x="603" y="88" text-anchor="middle" fill="var(--accent)" font-size="18">🤝</text>
+            <text x="603" y="114" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="700">部落协作</text>
+            <text x="603" y="134" text-anchor="middle" fill="var(--text-muted)" font-size="11">守夜人 · 换皮</text>
+          </g>
+          <g class="map-zone" data-quad="farming">
+            <rect class="zone-shape" x="674" y="16" width="112" height="168" rx="14" fill="var(--bg-elev)" stroke="var(--border-strong)" stroke-width="1.4"/>
+            <text x="730" y="88" text-anchor="middle" fill="var(--sage)" font-size="18">🌱</text>
+            <text x="730" y="114" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="700">长周期农耕</text>
+            <text x="730" y="134" text-anchor="middle" fill="var(--text-muted)" font-size="11">埋种子 · 留火种</text>
+          </g>
+        </svg>
+      </div>
+      <div class="lexicon-controls">
+        <input id="c3-search" class="search-input" type="search" placeholder="搜索现代词、原始词或认知锚点..." />
+        <span id="c3-count" style="font-size:12px;color:var(--text-muted);font-family:var(--font-mono);"></span>
+      </div>
+      <div class="cards-grid" id="c3-cards"></div>
+      <div class="card">
+        <strong style="font-family:var(--font-serif);font-size:16px;">铸造你的专属词卡（保存在本地浏览器）</strong>
+        <form id="c3-forge-form" class="forge-form">
+          <select id="f-quad" class="field-input">
+            <option value="space">空间与安全</option>
+            <option value="resource">资源与能量</option>
+            <option value="action">行动与目标</option>
+            <option value="tribe">部落协作</option>
+            <option value="farming">长周期 · 农耕</option>
+          </select>
+          <select id="f-icon" class="field-input">
+            <option value="🔥">🔥 篝火</option>
+            <option value="🪨">🪨 石器</option>
+            <option value="🌿">🌿 嫩芽</option>
+            <option value="🦴">🦴 猎骨</option>
+            <option value="💧">💧 泉水</option>
+            <option value="🌙">🌙 守夜</option>
+          </select>
+          <input id="f-modern" class="field-input" placeholder="现代概念（如：加班内卷）" required />
+          <input id="f-primal" class="field-input" placeholder="原始词（如：摸黑追野猪）" required />
+          <input id="f-anchor" class="field-input" placeholder="认知锚点（一句话看清本质）" required style="grid-column:1 / -1;" />
+          <button type="submit" class="primary-btn" style="grid-column:1 / -1;">⚒ 铸造并加入词库</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Chapter 4 -->
+    <section class="chapter" data-chapter="3">
+      <div class="chap-header">
+        <div class="chap-kicker">CHAPTER 04 · EMOTIONAL METEOROLOGY &amp; 6 VERBS</div>
+        <h2 class="chap-title">实时篝火生存模拟器：情绪气象学 + 六大动词</h2>
+        <p class="chap-lead">低落不是懒惰，只是「洞外下雨了」。调节柴火、草丛声响、猎物与天气，观察篝火随音乐节拍跳动，点击六大核心动词触发物理应对协议。</p>
+      </div>
+      <div class="card">
+        <div class="pill-row" id="c4-weathers"></div>
+        <div class="canvas-shell">
+          <canvas id="camp-canvas"></canvas>
+          <div class="camp-hud">
+            <span class="hud-tag" id="hud-weather">天气：晴朗丰收</span>
+            <span class="hud-tag" id="hud-beat">节拍共振：待机</span>
+          </div>
+        </div>
+        <div class="sim-sliders">
+          <div class="sim-control">
+            <div class="sim-control-head"><span>🪵 柴火余量（精力）</span><strong id="v-fire">72%</strong></div>
+            <input type="range" id="s-fire" min="5" max="100" value="72" />
+          </div>
+          <div class="sim-control">
+            <div class="sim-control-head"><span>🌿 洞外声响（焦虑源）</span><strong id="v-noise">28%</strong></div>
+            <input type="range" id="s-noise" min="0" max="100" value="28" />
+          </div>
+          <div class="sim-control">
+            <div class="sim-control-head"><span>🦌 同时盯紧的猎物</span><strong id="v-prey">1 只</strong></div>
+            <input type="range" id="s-prey" min="0" max="5" value="1" />
+          </div>
+        </div>
+        <div class="directive-banner">
+          <div class="directive-title" id="c4-dir-title"></div>
+          <div class="directive-body" id="c4-dir-body"></div>
+        </div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">六大核心原始动词（带金点为当前气象推荐，点击触发画布联动）：</div>
+        <div class="verbs-grid" id="c4-verbs"></div>
+        <div class="verb-protocol" id="c4-verb-protocol"></div>
+      </div>
+    </section>
+
+    <!-- Chapter 5 -->
+    <section class="chapter" data-chapter="4">
+      <div class="chap-header">
+        <div class="chap-kicker">CHAPTER 05 · DUAL-SYSTEM &amp; STONE TABLET</div>
+        <h2 class="chap-title">双系统切换铁律 &amp; 生存石板刻录</h2>
+        <p class="chap-lead">原始人模式不是逃避现实，而是认知过载时的强制止血。把眼前让你纠结的事翻译成三句原始人短句，刻上洞壁或导出高清石板图。</p>
+      </div>
+
+      <div class="dual-card">
+        <div class="dual-tabs" id="c5-dual-tabs">
+          <button class="pill-btn active" data-mode="primal">🔥 原始人模式 · 止血与降噪</button>
+          <button class="pill-btn" data-mode="modern">🧭 现代人模式 · 建造与复利</button>
+        </div>
+        <div id="c5-dual-content" style="font-size:14px;color:var(--text-muted);"></div>
+        <div class="dual-motto">铁律：用原始人的脑子保底和止痛，用现代人的脑子协作和复利。</div>
+      </div>
+
+      <div class="tablet-workspace">
+        <div class="card">
+          <div style="font-size:13px;font-weight:600;margin-bottom:8px;">1. 载入常见内耗案例或自由输入</div>
+          <div class="pill-row" id="c5-presets" style="margin-bottom:12px;"></div>
+          <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px;">现代烦恼原文</label>
+          <textarea id="c5-modern" class="textarea-box" style="min-height:66px;margin-bottom:12px;" placeholder="写下此刻让你纠结、焦虑或拖延的事..."></textarea>
+
+          <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px;">2. 用原始人词汇写下三句物理诊断（点击下方胶囊快速插入）</label>
+          <div class="capsule-group" id="c5-verb-caps"></div>
+          <div class="capsule-group" id="c5-noun-caps"></div>
+          <textarea id="c5-primal" class="textarea-box" style="min-height:112px;margin-bottom:14px;" placeholder="例：我的洞穴不漏雨，今晚有热饭。先吐掉假草丛响，添柴睡足，明天只盯紧一只猎物。"></textarea>
+
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <button id="btn-save-wall" class="primary-btn">🪨 刻上洞壁（存档）</button>
+            <button id="btn-export-png" class="secondary-btn">⬇ 导出 2x 高清 PNG</button>
+            <button id="btn-copy-text" class="secondary-btn">📋 复制纯文本</button>
+          </div>
+        </div>
+
+        <div class="stone-preview" id="stone-preview">
+          <div class="stone-kicker">
+            <span>PRIMAL TABLET · 生存石板</span>
+            <span id="stone-date"></span>
+          </div>
+          <div class="stone-modern-quote" id="stone-modern-out"></div>
+          <div class="stone-primal-body" id="stone-primal-out"></div>
+          <div class="stone-footer">
+            <span>♪ 《原始人不慌》 · Primal OS</span>
+            <span>洞穴安稳 · 心火不灭</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+          <strong style="font-family:var(--font-serif);font-size:17px;">我的洞壁 · 石板存档墙</strong>
+          <span id="wall-count" style="font-family:var(--font-mono);font-size:12px;color:var(--text-muted);"></span>
+        </div>
+        <div class="cave-wall-grid" id="cave-wall-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Pager -->
+  <footer class="pager">
+    <div class="pager-inner">
+      <button id="btn-prev" class="pager-btn">← 上一章</button>
+      <div class="pager-center" id="pager-indicator">01 / 05 · 洞穴视界</div>
+      <button id="btn-next" class="pager-btn">下一章 →</button>
+    </div>
+  </footer>
+
+  <div id="toast"></div>
+
+  <script>
+    (() => {
+      /* ================= STATE & STORAGE ================= */
+      const CHAPTERS = [
+        { num: '01', title: '洞穴视界', sub: '认知降维与去噪' },
+        { num: '02', title: '词汇打磨台', sub: '造词 3 原则' },
+        { num: '03', title: '领地图谱词库', sub: '狩猎 + 农耕双周期' },
+        { num: '04', title: '篝火生存模拟', sub: '情绪气象学与六大动词' },
+        { num: '05', title: '生存石板刻录', sub: '双系统铁律与洞壁存档' }
+      ];
+
+      let currentChapter = 0;
+      let sfxEnabled = localStorage.getItem('primal_sfx') !== '0';
+      let savedTheme = localStorage.getItem('primal_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+
+      const toastEl = document.getElementById('toast');
+      let toastTimer = null;
+      function showToast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
+      }
+
+      /* ================= WEB AUDIO: SFX + BGM ANALYSER ================= */
+      let audioCtx = null;
+      let analyser = null;
+      let freqData = null;
+      let mediaSourceConnected = false;
+      let musicEnergy = 0;
+
+      const bgm = document.getElementById('bgm-audio');
+      const btnPlay = document.getElementById('btn-play');
+      const btnLoop = document.getElementById('btn-loop');
+      const btnMute = document.getElementById('btn-mute');
+      const vizBars = Array.from(document.querySelectorAll('#viz-bars .viz-bar'));
+
+      function ensureAudioCtx() {
+        if (!audioCtx) {
+          const AC = window.AudioContext || window.webkitAudioContext;
+          if (AC) audioCtx = new AC();
+        }
+        if (audioCtx && audioCtx.state === 'suspended') {
+          audioCtx.resume().catch(() => {});
+        }
+        return audioCtx;
+      }
+
+      function connectBgmAnalyser() {
+        if (mediaSourceConnected) return;
+        const ctx = ensureAudioCtx();
+        if (!ctx) return;
+        try {
+          const src = ctx.createMediaElementSource(bgm);
+          analyser = ctx.createAnalyser();
+          analyser.fftSize = 64;
+          freqData = new Uint8Array(analyser.frequencyBinCount);
+          src.connect(analyser);
+          analyser.connect(ctx.destination);
+          mediaSourceConnected = true;
+        } catch (e) {
+          // Graceful fallback if browser blocks analyser on file://
+        }
+      }
+
+      function playStoneSfx(type = 'tap') {
+        if (!sfxEnabled) return;
+        const ctx = ensureAudioCtx();
+        if (!ctx) return;
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        if (type === 'pop') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(520, now);
+          osc.frequency.exponentialRampToValueAtTime(160, now + 0.08);
+          gain.gain.setValueAtTime(0.11, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+          osc.start(now); osc.stop(now + 0.09);
+        } else if (type === 'flint') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(1400, now);
+          osc.frequency.exponentialRampToValueAtTime(340, now + 0.11);
+          gain.gain.setValueAtTime(0.09, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+          osc.start(now); osc.stop(now + 0.12);
+        } else if (type === 'flip') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(320, now);
+          osc.frequency.exponentialRampToValueAtTime(480, now + 0.07);
+          gain.gain.setValueAtTime(0.07, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+          osc.start(now); osc.stop(now + 0.08);
+        } else if (type === 'carve') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.exponentialRampToValueAtTime(110, now + 0.15);
+          gain.gain.setValueAtTime(0.13, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+          osc.start(now); osc.stop(now + 0.16);
+        } else {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(280, now);
+          osc.frequency.exponentialRampToValueAtTime(190, now + 0.05);
+          gain.gain.setValueAtTime(0.06, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+          osc.start(now); osc.stop(now + 0.06);
+        }
+      }
+
+      async function togglePlay(forcePlay = false) {
+        ensureAudioCtx();
+        connectBgmAnalyser();
+        if (forcePlay || bgm.paused) {
+          try {
+            await bgm.play();
+            btnPlay.textContent = '⏸';
+            btnPlay.classList.add('active');
+          } catch (err) {
+            showToast('未检测到默认音频，可点右侧 📁 加载本地 MP3');
+          }
+        } else {
+          bgm.pause();
+          btnPlay.textContent = '▶';
+          btnPlay.classList.remove('active');
+        }
+      }
+
+      btnPlay.addEventListener('click', () => togglePlay(false));
+      btnLoop.addEventListener('click', () => {
+        bgm.loop = !bgm.loop;
+        btnLoop.classList.toggle('active', bgm.loop);
+        showToast(bgm.loop ? '已开启单曲循环' : '已关闭单曲循环');
+      });
+      btnMute.addEventListener('click', () => {
+        bgm.muted = !bgm.muted;
+        btnMute.textContent = bgm.muted ? '🔇' : '🔊';
+        btnMute.classList.toggle('active', bgm.muted);
+      });
+
+      const localAudioInput = document.getElementById('local-audio-input');
+      function openLocalPicker() { localAudioInput.click(); }
+      document.getElementById('btn-load-mp3').addEventListener('click', openLocalPicker);
+      document.getElementById('btn-enter-local-audio').addEventListener('click', openLocalPicker);
+      localAudioInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const url = URL.createObjectURL(file);
+        bgm.src = url;
+        document.getElementById('music-title').textContent = file.name.replace(/\.[^.]+$/, '');
+        document.getElementById('entrance-overlay').classList.add('hidden');
+        togglePlay(true);
+        showToast('已载入本地音频：' + file.name);
+      });
+
+      // Visualizer loop
+      function updateVisualizer() {
+        const playing = !bgm.paused && !bgm.muted;
+        if (playing && analyser && freqData) {
+          analyser.getByteFrequencyData(freqData);
+          let bassSum = 0;
+          for (let i = 0; i < 6; i++) bassSum += freqData[i];
+          musicEnergy = bassSum / (6 * 255);
+          const bins = [1, 3, 5, 8, 12];
+          vizBars.forEach((bar, idx) => {
+            const v = freqData[bins[idx]] || 0;
+            bar.style.height = Math.max(4, Math.round((v / 255) * 16)) + 'px';
+          });
+        } else if (playing) {
+          const t = performance.now() * 0.008;
+          musicEnergy = 0.28 + 0.18 * Math.sin(t * 1.4);
+          vizBars.forEach((bar, idx) => {
+            const h = 5 + Math.abs(Math.sin(t + idx * 0.9)) * 10;
+            bar.style.height = Math.round(h) + 'px';
+          });
+        } else {
+          musicEnergy *= 0.88;
+          vizBars.forEach((bar) => (bar.style.height = '4px'));
+        }
+        requestAnimationFrame(updateVisualizer);
+      }
+      requestAnimationFrame(updateVisualizer);
+
+      /* ================= ENTRANCE, THEME, SFX, DRAWER, PAGER ================= */
+      const entrance = document.getElementById('entrance-overlay');
+      document.getElementById('btn-enter-fire').addEventListener('click', () => {
+        playStoneSfx('flint');
+        entrance.classList.add('hidden');
+        togglePlay(true);
+      });
+      document.getElementById('btn-enter-silent').addEventListener('click', () => {
+        entrance.classList.add('hidden');
+      });
+
+      const btnSfx = document.getElementById('btn-sfx');
+      btnSfx.classList.toggle('active', sfxEnabled);
+      btnSfx.addEventListener('click', () => {
+        sfxEnabled = !sfxEnabled;
+        localStorage.setItem('primal_sfx', sfxEnabled ? '1' : '0');
+        btnSfx.classList.toggle('active', sfxEnabled);
+        if (sfxEnabled) playStoneSfx('tap');
+        showToast(sfxEnabled ? '石器微音效已开启' : '石器微音效已静音');
+      });
+
+      const btnTheme = document.getElementById('btn-theme');
+      function syncThemeIcon() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        btnTheme.textContent = isDark ? '☀' : '☾';
+      }
+      syncThemeIcon();
+      btnTheme.addEventListener('click', () => {
+        const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('primal_theme', next);
+        syncThemeIcon();
+        playStoneSfx('tap');
+      });
+
+      // Drawer
+      const drawer = document.getElementById('drawer');
+      const drawerBackdrop = document.getElementById('drawer-backdrop');
+      const drawerNav = document.getElementById('drawer-nav');
+      function setDrawer(open) {
+        drawer.classList.toggle('open', open);
+        drawerBackdrop.classList.toggle('open', open);
+      }
+      document.getElementById('btn-drawer').addEventListener('click', () => setDrawer(true));
+      document.getElementById('btn-close-drawer').addEventListener('click', () => setDrawer(false));
+      drawerBackdrop.addEventListener('click', () => setDrawer(false));
+
+      function renderDrawer() {
+        drawerNav.innerHTML = CHAPTERS.map((c, i) => `
+          <button class="drawer-item ${i === currentChapter ? 'active' : ''}" data-go="${i}">
+            <span class="drawer-num">${c.num}</span>
+            <span>
+              <span class="drawer-item-title">${c.title}</span>
+              <span class="drawer-item-sub">${c.sub}</span>
+            </span>
+          </button>
+        `).join('');
+        drawerNav.querySelectorAll('.drawer-item').forEach(btn => {
+          btn.addEventListener('click', () => {
+            goToChapter(Number(btn.dataset.go));
+            setDrawer(false);
+          });
+        });
+      }
+
+      const chapterEls = Array.from(document.querySelectorAll('.chapter'));
+      const btnPrev = document.getElementById('btn-prev');
+      const btnNext = document.getElementById('btn-next');
+      const pagerIndicator = document.getElementById('pager-indicator');
+      const progressFill = document.getElementById('progress-fill');
+
+      function goToChapter(idx, silent = false) {
+        if (idx < 0 || idx >= CHAPTERS.length) return;
+        currentChapter = idx;
+        chapterEls.forEach((el, i) => el.classList.toggle('active', i === idx));
+        btnPrev.disabled = idx === 0;
+        btnNext.disabled = idx === CHAPTERS.length - 1;
+        pagerIndicator.textContent = `${CHAPTERS[idx].num} / 0${CHAPTERS.length} · ${CHAPTERS[idx].title}`;
+        progressFill.style.width = `${((idx + 1) / CHAPTERS.length) * 100}%`;
+        renderDrawer();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (!silent) playStoneSfx('tap');
+        syncCampLoop();
+      }
+
+      btnPrev.addEventListener('click', () => goToChapter(currentChapter - 1));
+      btnNext.addEventListener('click', () => goToChapter(currentChapter + 1));
+
+      document.addEventListener('keydown', (e) => {
+        if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return;
+        if (!entrance.classList.contains('hidden')) return;
+        if (e.key === 'ArrowRight') goToChapter(currentChapter + 1);
+        if (e.key === 'ArrowLeft') goToChapter(currentChapter - 1);
+      });
+
+      // Mobile Swipe
+      let touchStartX = 0, touchStartY = 0;
+      document.addEventListener('touchstart', (e) => {
+        if (e.target.tagName === 'INPUT') return;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+      document.addEventListener('touchend', (e) => {
+        if (!touchStartX || e.target.tagName === 'INPUT') return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        touchStartX = 0;
+        if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.6) {
+          if (dx < 0) goToChapter(currentChapter + 1);
+          else goToChapter(currentChapter - 1);
+        }
+      }, { passive: true });
+
+      /* ================= CHAPTER 1: CAVE VISION ================= */
+      const C1_SCENARIOS = [
+        {
+          id: 'cave', label: '出租屋 → 洞穴', modern: '出租屋 / 居住焦虑', primal: '洞 穴',
+          svg: `<svg viewBox="0 0 80 80" fill="none"><path d="M10 66 L40 16 L70 66 Z" stroke="var(--accent)" stroke-width="3" fill="var(--accent-soft)"/><path d="M28 66 C28 48 52 48 52 66" fill="var(--bg)" stroke="var(--gold)" stroke-width="2.5"/><circle cx="40" cy="56" r="5" fill="var(--gold)"/></svg>`,
+          bubbles: ['房租又涨了', '同学买房了', '装修太老旧', '房东脸色', '地段不够体面', '面积太小'],
+          gauges: [
+            { label: '干燥度', val: '达标 · 不漏雨', desc: '山洞不漏雨，晚风轻轻晃' },
+            { label: '避风度', val: '安全 · 挡风雨', desc: '关上门就能隔绝洞外喧嚣' },
+            { label: '安睡度', val: '良好 · 可深度回血', desc: '有一张床和热饭就是合格洞穴' }
+          ]
+        },
+        {
+          id: 'prey', label: 'KPI / 目标 → 猎物', modern: '年度 KPI / 待办清单', primal: '猎 物',
+          svg: `<svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="24" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="5 4"/><circle cx="40" cy="40" r="10" stroke="var(--gold)" stroke-width="2.5"/><path d="M40 8 V22 M40 58 V72 M8 40 H22 M58 40 H72" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+          bubbles: ['跨部门对齐', 'PPT够不够卷', '别人跑得更快', '绩效打分', '老板怎么评价', '同时开十个坑'],
+          gauges: [
+            { label: '数量纪律', val: '一次只盯一只', desc: '同时追三只兔子，今晚必定空手' },
+            { label: '轨迹清晰度', val: '足迹可见', desc: '拆成今天就能出手的物理一步' },
+            { label: '能量回报', val: '打到就有肉吃', desc: '聚焦高价值主线，放弃假动作' }
+          ]
+        },
+        {
+          id: 'bush', label: '刷热搜 → 假草丛响', modern: '信息流 / 焦虑热搜', primal: '假草丛响',
+          svg: `<svg viewBox="0 0 80 80" fill="none"><path d="M16 62 Q28 24 36 62 M34 62 Q42 18 52 62 M48 62 Q58 28 66 62" stroke="var(--sage)" stroke-width="3" stroke-linecap="round"/><path d="M22 24 Q40 12 58 24" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 4"/></svg>`,
+          bubbles: ['某行业要完了', '35岁危机', '同龄人暴富', '全网热议', '标题党警报', '错过就完了'],
+          gauges: [
+            { label: '真实威胁', val: '0 只真猛兽', desc: '屏幕里吵翻天，窗外其实没风浪' },
+            { label: '肾上腺素损耗', val: '立刻止损', desc: '关掉脑子里的假警报其实很轻松' },
+            { label: '应对动作', val: '退回篝火圈', desc: '先看自己碗里的热饭和手头的事' }
+          ]
+        }
+      ];
+
+      let c1Idx = 0;
+      const c1ScenariosEl = document.getElementById('c1-scenarios');
+      const c1Slider = document.getElementById('c1-slider');
+      const c1Pct = document.getElementById('c1-pct');
+      const visionBubblesEl = document.getElementById('vision-bubbles');
+      const visionStageEl = document.getElementById('vision-stage');
+
+      function spawnParticles(container, x, y, color = 'var(--accent)') {
+        for (let i = 0; i < 8; i++) {
+          const dot = document.createElement('span');
+          dot.className = 'particle-dot';
+          dot.style.left = x + 'px';
+          dot.style.top = y + 'px';
+          dot.style.background = color;
+          container.appendChild(dot);
+          const ang = (Math.PI * 2 * i) / 8 + Math.random() * 0.4;
+          const dist = 24 + Math.random() * 26;
+          requestAnimationFrame(() => {
+            dot.style.transform = `translate(${Math.cos(ang)*dist}px, ${Math.sin(ang)*dist}px) scale(0)`;
+            dot.style.opacity = '0';
+          });
+          setTimeout(() => dot.remove(), 480);
+        }
+      }
+
+      function renderC1() {
+        const sc = C1_SCENARIOS[c1Idx];
+        c1ScenariosEl.innerHTML = C1_SCENARIOS.map((s, i) => `
+          <button class="pill-btn ${i === c1Idx ? 'active' : ''}" data-sc="${i}">${s.label}</button>
+        `).join('');
+        c1ScenariosEl.querySelectorAll('button').forEach(b => {
+          b.addEventListener('click', () => {
+            c1Idx = Number(b.dataset.sc);
+            c1Slider.value = 15;
+            playStoneSfx('tap');
+            renderC1();
+          });
+        });
+
+        document.getElementById('vision-svg').innerHTML = sc.svg;
+        document.getElementById('vision-modern').textContent = sc.modern;
+        document.getElementById('vision-primal').textContent = sc.primal;
+
+        const positions = [
+          [10, 16], [68, 14], [7, 68], [66, 70], [38, 8], [36, 78]
+        ];
+        visionBubblesEl.innerHTML = sc.bubbles.map((txt, i) => `
+          <div class="noise-bubble" style="left:${positions[i][0]}%;top:${positions[i][1]}%;animation-delay:${i*0.4}s;" data-b="${i}">✕ ${txt}</div>
+        `).join('');
+
+        visionBubblesEl.querySelectorAll('.noise-bubble').forEach(el => {
+          el.addEventListener('click', (e) => {
+            if (el.classList.contains('popped')) return;
+            el.classList.add('popped');
+            playStoneSfx('pop');
+            const rect = visionStageEl.getBoundingClientRect();
+            spawnParticles(visionStageEl, e.clientX - rect.left, e.clientY - rect.top);
+            const remaining = visionBubblesEl.querySelectorAll('.noise-bubble:not(.popped)').length;
+            const targetVal = Math.round(((sc.bubbles.length - remaining) / sc.bubbles.length) * 100);
+            c1Slider.value = Math.max(Number(c1Slider.value), targetVal);
+            applyC1Denoise();
+          });
+        });
+
+        document.getElementById('c1-gauges').innerHTML = sc.gauges.map(g => `
+          <div class="gauge-box">
+            <div class="gauge-label">${g.label}</div>
+            <div class="gauge-val">${g.val}</div>
+            <div class="gauge-desc">${g.desc}</div>
+          </div>
+        `).join('');
+
+        applyC1Denoise();
+      }
+
+      function applyC1Denoise() {
+        const val = Number(c1Slider.value);
+        c1Pct.textContent = val + '%';
+        const ratio = val / 100;
+        document.getElementById('vision-grid').style.opacity = String(1 - ratio);
+        document.getElementById('vision-glow').style.opacity = String(0.15 + ratio * 0.85);
+        document.getElementById('vision-glow').style.transform = `scale(${0.7 + ratio * 0.5})`;
+        document.getElementById('vision-svg').style.opacity = String(0.35 + ratio * 0.65);
+        document.getElementById('vision-svg').style.transform = `scale(${0.86 + ratio * 0.18})`;
+
+        const bubbles = visionBubblesEl.querySelectorAll('.noise-bubble');
+        bubbles.forEach((b, i) => {
+          if (!b.classList.contains('popped')) {
+            const threshold = ((i + 1) / bubbles.length) * 95;
+            b.style.opacity = val >= threshold ? '0' : String(Math.max(0.25, 1 - ratio * 0.9));
+            b.style.pointerEvents = val >= threshold ? 'none' : 'auto';
+          }
+        });
+
+        document.querySelectorAll('#c1-gauges .gauge-box').forEach(g => {
+          g.style.opacity = String(0.45 + ratio * 0.55);
+          g.style.borderColor = ratio > 0.7 ? 'var(--accent)' : 'var(--border)';
+        });
+      }
+      c1Slider.addEventListener('input', applyC1Denoise);
+
+      /* ================= CHAPTER 2: ANVIL FORGE ================= */
+      const C2_WORDS = [
+        {
+          modern: '拖延 / 精疲力竭', shame: '道德审判：不够自律',
+          primal: '柴火见底 · 回洞舔伤口',
+          steps: [
+            '具身翻译：不是意志力薄弱，是身体里的柴火快烧光了。',
+            '剥离羞耻：没有人会骂一团快熄灭的火“不够努力”。',
+            '物理动作：立刻添柴（睡觉、喝热汤），等火旺了再出洞。'
+          ]
+        },
+        {
+          modern: '焦虑内耗', shame: '道德审判：心态太差',
+          primal: '听见假草丛响',
+          steps: [
+            '具身翻译：心跳加速只是原始警报器被风吹响了。',
+            '剥离羞耻：警觉是保命本能，不是性格缺陷。',
+            '物理动作：确认洞外没有真猛兽后，立刻退回篝火圈。'
+          ]
+        },
+        {
+          modern: '消费主义虚荣', shame: '道德审判：爱慕虚荣',
+          primal: '拿干肉换亮晶晶的石头',
+          steps: [
+            '具身翻译：账单不是数字，是你辛辛苦苦攒下的过冬干肉。',
+            '剥离羞耻：人类天生喜欢发光物体，看穿机制就不自责。',
+            '物理动作：问一句“它能吃还是能御寒？”不能就放下。'
+          ]
+        },
+        {
+          modern: '无效社交', shame: '道德审判：不够合群',
+          primal: '路过的其他部落',
+          steps: [
+            '具身翻译：真正重要的是天黑时谁能帮你守夜、把后背交给你。',
+            '剥离羞耻：不需要讨好草原上路过的每一个部落。',
+            '物理动作：把柴火留给真正的守夜人，其余礼貌挥手即可。'
+          ]
+        }
+      ];
+
+      const C2_RUNES = [
+        { tag: 'PRINCIPLE 01', title: '去抽象化（具身性）', desc: '触发感官与身体反应' },
+        { tag: 'PRINCIPLE 02', title: '去道德化（物理性）', desc: '粉碎羞耻感与评价体系' },
+        { tag: 'PRINCIPLE 03', title: '强行动指向', desc: '词义自带下一步动作' }
+      ];
+
+      let c2Idx = 0;
+      let c2Struck = [false, false, false];
+
+      function renderC2() {
+        const item = C2_WORDS[c2Idx];
+        document.getElementById('c2-words').innerHTML = C2_WORDS.map((w, i) => `
+          <button class="pill-btn ${i === c2Idx ? 'active' : ''}" data-w="${i}">${w.modern}</button>
+        `).join('');
+        document.querySelectorAll('#c2-words button').forEach(b => {
+          b.addEventListener('click', () => {
+            c2Idx = Number(b.dataset.w);
+            c2Struck = [false, false, false];
+            playStoneSfx('tap');
+            renderC2();
+          });
+        });
+
+        document.getElementById('c2-runes').innerHTML = C2_RUNES.map((r, i) => `
+          <button class="rune-btn ${c2Struck[i] ? 'struck' : ''}" data-r="${i}">
+            <div class="rune-tag">${r.tag}</div>
+            <div class="rune-title">${c2Struck[i] ? '✓ ' : ''}${r.title}</div>
+            <div class="rune-desc">${r.desc}</div>
+          </button>
+        `).join('');
+
+        document.querySelectorAll('#c2-runes .rune-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const rIdx = Number(btn.dataset.r);
+            c2Struck[rIdx] = !c2Struck[rIdx];
+            playStoneSfx('flint');
+            const stage = document.getElementById('anvil-stage');
+            const rect = stage.getBoundingClientRect();
+            spawnParticles(stage, rect.width / 2, rect.height / 2, 'var(--gold)');
+            renderC2();
+          });
+        });
+
+        const count = c2Struck.filter(Boolean).length;
+        const stamp = document.getElementById('shame-stamp');
+        stamp.textContent = item.shame;
+        stamp.className = 'shame-stamp' + (count === 1 || count === 2 ? ' cracked' : count === 3 ? ' shattered' : '');
+
+        const wordEl = document.getElementById('anvil-word');
+        const subEl = document.getElementById('anvil-sub');
+        if (count === 3) {
+          wordEl.textContent = item.primal;
+          wordEl.style.color = 'var(--accent)';
+          subEl.textContent = '✨ 词汇开锋完成：羞耻感已清零，物理指令已就绪';
+        } else {
+          wordEl.textContent = item.modern;
+          wordEl.style.color = 'var(--text)';
+          subEl.textContent = `已点亮 ${count} / 3 枚原则符文`;
+        }
+
+        const activeNotes = item.steps.filter((_, i) => c2Struck[i]);
+        document.getElementById('c2-result').innerHTML = activeNotes.length
+          ? activeNotes.map(n => `<div style="margin:4px 0;">▸ ${n}</div>`).join('')
+          : '点击上方三枚原则符文，逐层剥离现代词汇的抽象噪音。';
+      }
+
+      /* ================= CHAPTER 3: LEXICON & 3D FLIP CARDS ================= */
+      const QUAD_NAMES = {
+        space: '空间与安全',
+        resource: '资源与能量',
+        action: '行动与目标',
+        tribe: '部落协作',
+        farming: '长周期 · 农耕'
+      };
+
+      const BASE_CARDS = [
+        { quad: 'space', icon: '⛺', modern: '住所 / 出租屋', primal: '洞穴', anchor: '只要干燥、挡风、能安睡就及格，不攀比装修与地段。' },
+        { quad: 'space', icon: '🔥', modern: '专注时间 / 个人边界', primal: '篝火圈', anchor: '火光所及之处才安全，圈外的一切纷扰暂时与我无关。' },
+        { quad: 'space', icon: '🌫️', modern: '未知领域 / 新项目', primal: '迷雾林', anchor: '进去前必须带火把、做标记，绝不盲目狂奔。' },
+        { quad: 'space', icon: '🎵', modern: '睡前停止胡思乱想', primal: '关掉脑子里的警报', anchor: '♪ 歌词彩蛋：脑子里的警报关掉其实很轻松，睡醒再慢慢碰。', lyric: true },
+        { quad: 'resource', icon: '🥩', modern: '存款 / 应急资金', primal: '过冬干肉', anchor: '决定你能扛过几个寒冬，绝不拿它去换无用的虚荣。' },
+        { quad: 'resource', icon: '🪵', modern: '精力 / 睡眠 / 情绪', primal: '柴火', anchor: '火快灭了就必须添柴，硬烧只会彻底熄火。' },
+        { quad: 'resource', icon: '💎', modern: '消费主义 / 虚荣品', primal: '亮晶晶的石头', anchor: '好看但不能吃、不能御寒，拿干肉换它很亏。' },
+        { quad: 'resource', icon: '🍇', modern: '垃圾信息 / 成瘾刷屏', primal: '甜毒果', anchor: '入口极甜，吃完浑身无力、耽误打猎，发现就吐掉。' },
+        { quad: 'resource', icon: '💧', modern: '自来水与现代便利', primal: '清甜泉水自己来', anchor: '♪ 歌词彩蛋：拧开龙头清甜泉水自己来，按原始人标准你早已是大富翁。', lyric: true },
+        { quad: 'action', icon: '🦌', modern: '核心目标 / 关键产出', primal: '猎物', anchor: '一次只盯一只，讲究潜伏、时机与一击必中。' },
+        { quad: 'action', icon: '🪓', modern: '学习 / 工具准备 / 复盘', primal: '磨石斧', anchor: '斧子钝了就停下来磨，但不能磨一天不出门打猎。' },
+        { quad: 'action', icon: '🌿', modern: '焦虑热搜 / 无效警报', primal: '假草丛响', anchor: '白白消耗肾上腺素的假警报，听见了先确认，别乱跑。' },
+        { quad: 'tribe', icon: '🛡️', modern: '核心亲友 / 靠谱队友', primal: '守夜人', anchor: '天黑时能把后背交给他的人，值得倾力维护。' },
+        { quad: 'tribe', icon: '🧙', modern: '导师 / 高质量信源', primal: '老猎人 / 萨满', anchor: '走过迷雾林、知道哪有水源的人，听他的少踩坑。' },
+        { quad: 'tribe', icon: '🧥', modern: '商业交易 / 职场汇报', primal: '换兽皮', anchor: '本质是等价交换，拿得出好兽皮，自然换得到盐和铁。' },
+        { quad: 'farming', icon: '🌱', modern: '长期积累 / 复利项目', primal: '埋种子 / 养果树', anchor: '今天浇水不会立刻结果，但你知道它在土里悄悄长根。' },
+        { quad: 'farming', icon: '🕯️', modern: '核心技能 / 个人资产', primal: '留火种', anchor: '火种不能灭，哪怕低谷期每天只添一小根枯枝。' },
+        { quad: 'farming', icon: '🍂', modern: '试错成本 / 沉没成本', primal: '烂掉的果子', anchor: '烂了就扔，绝不为了“不浪费”把它硬吃进肚子里。' },
+        { quad: 'farming', icon: '🌰', modern: '长期安全垫与储备', primal: '兜里囤的果子', anchor: '♪ 歌词彩蛋：兜里囤的果子够吃到明年寒冬，那就真的没什么好慌。', lyric: true }
+      ];
+
+      let customCards = [];
+      try { customCards = JSON.parse(localStorage.getItem('primal_custom_cards') || '[]'); } catch {}
+      let activeQuad = 'all';
+      const searchInput = document.getElementById('c3-search');
+
+      document.querySelectorAll('.map-zone').forEach(z => {
+        z.addEventListener('click', () => {
+          activeQuad = z.dataset.quad;
+          document.querySelectorAll('.map-zone').forEach(el => el.classList.toggle('active', el.dataset.quad === activeQuad));
+          playStoneSfx('tap');
+          renderC3();
+        });
+      });
+      searchInput.addEventListener('input', renderC3);
+
+      function renderC3() {
+        const q = searchInput.value.trim().toLowerCase();
+        const all = [...customCards, ...BASE_CARDS];
+        const filtered = all.filter(c => {
+          if (activeQuad !== 'all' && c.quad !== activeQuad) return false;
+          if (!q) return true;
+          return (c.modern + c.primal + c.anchor + QUAD_NAMES[c.quad]).toLowerCase().includes(q);
+        });
+        document.getElementById('c3-count').textContent = `显示 ${filtered.length} / ${all.length} 张词卡`;
+
+        const grid = document.getElementById('c3-cards');
+        if (!filtered.length) {
+          grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:32px;color:var(--text-muted);">未找到匹配词卡，试试清空搜索词或自己铸造一张。</div>`;
+          return;
+        }
+        grid.innerHTML = filtered.map((c, idx) => `
+          <div class="flip-card" data-idx="${idx}">
+            <div class="flip-inner">
+              <div class="flip-face">
+                <div class="card-meta-row">
+                  <span class="quad-badge">${c.icon} ${QUAD_NAMES[c.quad]}</span>
+                  ${c.lyric ? `<span class="lyric-badge">♪ 歌词彩蛋</span>` : c.custom ? `<span class="lyric-badge">自定义</span>` : ''}
+                </div>
+                <div>
+                  <div class="card-primal">${c.primal}</div>
+                  <div class="card-modern">原词：${c.modern}</div>
+                </div>
+                <div class="card-hint">
+                  <span>点击翻面看锚点 ↻</span>
+                  ${c.custom ? `<button class="mini-btn del-custom" data-id="${c.id}" title="删除">✕</button>` : ''}
+                </div>
+              </div>
+              <div class="flip-face flip-back">
+                <div class="card-meta-row">
+                  <strong style="color:var(--accent);">${c.primal}</strong>
+                  <span style="font-size:11px;color:var(--text-muted);">认知锚点</span>
+                </div>
+                <div class="card-anchor">${c.anchor}</div>
+                <div class="card-hint"><span>再次点击翻回</span></div>
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+        grid.querySelectorAll('.flip-card').forEach(card => {
+          card.addEventListener('click', (e) => {
+            if (e.target.closest('.del-custom')) return;
+            card.classList.toggle('flipped');
+            playStoneSfx('flip');
+          });
+        });
+        grid.querySelectorAll('.del-custom').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const id = btn.dataset.id;
+            customCards = customCards.filter(c => c.id !== id);
+            localStorage.setItem('primal_custom_cards', JSON.stringify(customCards));
+            playStoneSfx('pop');
+            renderC3();
+            showToast('已移除自定义词卡');
+          });
+        });
+      }
+
+      document.getElementById('c3-forge-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const item = {
+          id: 'c_' + Date.now(),
+          custom: true,
+          quad: document.getElementById('f-quad').value,
+          icon: document.getElementById('f-icon').value,
+          modern: document.getElementById('f-modern').value.trim(),
+          primal: document.getElementById('f-primal').value.trim(),
+          anchor: document.getElementById('f-anchor').value.trim()
+        };
+        if (!item.modern || !item.primal || !item.anchor) return;
+        customCards.unshift(item);
+        localStorage.setItem('primal_custom_cards', JSON.stringify(customCards));
+        e.target.reset();
+        playStoneSfx('flint');
+        renderC3();
+        showToast(`新词卡「${item.primal}」已铸造`);
+      });
+
+      /* ================= CHAPTER 4: CAMPFIRE SIMULATOR + 6 VERBS ================= */
+      const WEATHERS = [
+        { id: 'clear', label: '☀️ 晴朗丰收', desc: '视野清晰，适合主动出击盯紧一只猎物。' },
+        { id: 'rain', label: '🌧️ 洞外下雨', desc: '莫名低落不是懒惰，雨天本就不适合打猎，在洞里磨斧发呆很正常。' },
+        { id: 'fog', label: '🌫️ 迷雾林', desc: '前景不明时不要猛冲，先打火把、做标记、小步试探。' },
+        { id: 'winter', label: '❄️ 寒冬蛰伏', desc: '瓶颈期地面冻住了，此刻任务是保命存粮、留住火种，而非盲目扩张。' }
+      ];
+
+      const VERBS = [
+        { id: 'retreat', ch: '缩回', en: 'RETREAT', protocol: '【缩回协议】遇到真风浪或精力见底时，果断撤回洞穴，不硬扛、不自责，先确保篝火圈安全。' },
+        { id: 'spit', ch: '吐掉', en: 'SPIT OUT', protocol: '【吐掉协议】一旦察觉自己在吞甜毒果（焦虑热搜、烂人烂事、沉没成本），3 秒内物理切断。' },
+        { id: 'focus', ch: '盯紧', en: 'LOCK ON', protocol: '【盯紧协议】收束全部视野到唯一一只猎物上，其余动静一律归为背景噪音，直到一击必中。' },
+        { id: 'sharpen', ch: '磨斧', en: 'SHARPEN', protocol: '【磨斧协议】停止低水平重复蛮干，花 30 分钟升级工具、写脚本或复盘流程，再重新出门。' },
+        { id: 'trade', ch: '换皮', en: 'BARTER', protocol: '【换皮协议】面对汇报、合作或商业交易，忘掉讨好心态，只问：我拿出什么好兽皮，换回什么？' },
+        { id: 'fuel', ch: '添柴', en: 'ADD FUEL', protocol: '【添柴协议】把睡觉、吃热饭、晒太阳当成最高优先级的正经任务执行，火旺了才有战斗力。' }
+      ];
+
+      let currentWeather = 'clear';
+      let selectedVerb = 'focus';
+      let recommendedVerb = 'focus';
+      let verbFx = { type: null, timer: 0 };
+
+      const sFire = document.getElementById('s-fire');
+      const sNoise = document.getElementById('s-noise');
+      const sPrey = document.getElementById('s-prey');
+
+      function updateCampLogic() {
+        const fire = Number(sFire.value);
+        const noise = Number(sNoise.value);
+        const prey = Number(sPrey.value);
+        document.getElementById('v-fire').textContent = fire + '%';
+        document.getElementById('v-noise').textContent = noise + '%';
+        document.getElementById('v-prey').textContent = prey + ' 只';
+
+        const wObj = WEATHERS.find(w => w.id === currentWeather);
+        document.getElementById('hud-weather').textContent = '气象：' + wObj.label.replace(/^.+\s/, '');
+
+        let title = '', body = '';
+        if (fire < 30) {
+          recommendedVerb = 'fuel';
+          title = '警报：柴火即将见底 → 立刻「添柴」';
+          body = '此刻不要谈任何宏大目标。先回洞穴吃热食、睡觉、恢复体力，火种熄了什么都打不到。';
+        } else if (noise > 68) {
+          recommendedVerb = 'spit';
+          title = '干扰：洞外假草丛响太吵 → 立刻「吐掉」';
+          body = '信息流和外界比较正在偷走你的肾上腺素。关掉手机警报，确认没有真猛兽后退回篝火圈。';
+        } else if (currentWeather === 'rain') {
+          recommendedVerb = 'sharpen';
+          title = '气象：洞外下雨了 → 安心「磨斧」';
+          body = wObj.desc;
+        } else if (currentWeather === 'winter') {
+          recommendedVerb = 'retreat';
+          title = '气象：寒冬蛰伏期 → 稳健「缩回」';
+          body = wObj.desc;
+        } else if (prey > 2) {
+          recommendedVerb = 'focus';
+          title = `分心：同时在追 ${prey} 只猎物 → 砍掉多余，只「盯紧」1 只`;
+          body = '原始人从不同时追三只兔子。挑出今天最有肉吃的一只，其余全部放走。';
+        } else if (prey === 0) {
+          recommendedVerb = 'sharpen';
+          title = '空窗：眼前没有锁定猎物 → 借机「磨斧」或埋种子';
+          body = '没有紧急猎物时，正好整理工具、复盘系统或给长周期果树浇水。';
+        } else {
+          recommendedVerb = 'focus';
+          title = '最佳状态：火旺、风静、目标唯一 → 出击「盯紧」';
+          body = wObj.desc + ' 现在是执行核心产出的黄金窗口。';
+        }
+
+        document.getElementById('c4-dir-title').textContent = title;
+        document.getElementById('c4-dir-body').textContent = body;
+        renderC4Controls();
+      }
+
+      function renderC4Controls() {
+        document.getElementById('c4-weathers').innerHTML = WEATHERS.map(w => `
+          <button class="pill-btn ${w.id === currentWeather ? 'active' : ''}" data-w="${w.id}">${w.label}</button>
+        `).join('');
+        document.querySelectorAll('#c4-weathers button').forEach(b => {
+          b.addEventListener('click', () => {
+            currentWeather = b.dataset.w;
+            playStoneSfx('tap');
+            updateCampLogic();
+          });
+        });
+
+        document.getElementById('c4-verbs').innerHTML = VERBS.map(v => `
+          <button class="verb-btn ${v.id === selectedVerb ? 'active' : ''} ${v.id === recommendedVerb ? 'recommended' : ''}" data-v="${v.id}">
+            ${v.id === recommendedVerb ? '<span class="verb-rec-dot" title="当前推荐"></span>' : ''}
+            <span class="verb-char">${v.ch}</span>
+            <span class="verb-en">${v.en}</span>
+          </button>
+        `).join('');
+        document.querySelectorAll('#c4-verbs .verb-btn').forEach(b => {
+          b.addEventListener('click', () => {
+            selectedVerb = b.dataset.v;
+            verbFx = { type: selectedVerb, timer: 45 };
+            playStoneSfx(selectedVerb === 'fuel' || selectedVerb === 'sharpen' ? 'flint' : 'tap');
+            renderC4Controls();
+          });
+        });
+
+        const vObj = VERBS.find(v => v.id === selectedVerb);
+        document.getElementById('c4-verb-protocol').textContent = vObj.protocol;
+      }
+
+      [sFire, sNoise, sPrey].forEach(el => el.addEventListener('input', updateCampLogic));
+
+      // 60fps Campfire Canvas
+      const campCanvas = document.getElementById('camp-canvas');
+      const cctx = campCanvas.getContext('2d');
+      let campRaf = null;
+      const embers = Array.from({ length: 34 }, () => ({ x: 0, y: 0, vy: 0, vx: 0, life: 0, max: 1 }));
+      const drops = Array.from({ length: 70 }, () => ({ x: Math.random(), y: Math.random(), spd: 0.012 + Math.random() * 0.018 }));
+      const stars = Array.from({ length: 42 }, () => ({ x: Math.random(), y: Math.random() * 0.55, r: 0.8 + Math.random() * 1.4, p: Math.random() * 6.28 }));
+
+      function resizeCampCanvas() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const w = campCanvas.clientWidth || 720;
+        const h = campCanvas.clientHeight || 290;
+        if (campCanvas.width !== Math.round(w * dpr) || campCanvas.height !== Math.round(h * dpr)) {
+          campCanvas.width = Math.round(w * dpr);
+          campCanvas.height = Math.round(h * dpr);
+        }
+        cctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        return { w, h };
+      }
+
+      function drawCampFrame(now) {
+        const { w, h } = resizeCampCanvas();
+        const t = now * 0.001;
+        const fire = Number(sFire.value) / 100;
+        const noise = Number(sNoise.value) / 100;
+        const prey = Number(sPrey.value);
+        const beatBoost = musicEnergy * 0.55;
+
+        document.getElementById('hud-beat').textContent = !bgm.paused
+          ? `节拍共振：${Math.round(musicEnergy * 100)}%`
+          : '节拍共振：播放音乐开启';
+
+        // Sky gradient by weather
+        const sky = cctx.createLinearGradient(0, 0, 0, h);
+        if (currentWeather === 'winter') {
+          sky.addColorStop(0, '#0C141F'); sky.addColorStop(1, '#1A2430');
+        } else if (currentWeather === 'rain') {
+          sky.addColorStop(0, '#101418'); sky.addColorStop(1, '#1E2326');
+        } else if (currentWeather === 'fog') {
+          sky.addColorStop(0, '#171716'); sky.addColorStop(1, '#2B2926');
+        } else {
+          sky.addColorStop(0, '#120E0C'); sky.addColorStop(1, '#231A14');
+        }
+        cctx.fillStyle = sky;
+        cctx.fillRect(0, 0, w, h);
+
+        // Stars (clear & winter)
+        if (currentWeather === 'clear' || currentWeather === 'winter') {
+          stars.forEach(s => {
+            const a = 0.25 + 0.55 * (0.5 + 0.5 * Math.sin(t * 1.8 + s.p));
+            cctx.fillStyle = `rgba(246, 232, 206, ${a})`;
+            cctx.beginPath();
+            cctx.arc(s.x * w, s.y * h, s.r, 0, Math.PI * 2);
+            cctx.fill();
+          });
+        }
+
+        // Mountain silhouette
+        cctx.fillStyle = 'rgba(12, 10, 9, 0.72)';
+        cctx.beginPath();
+        cctx.moveTo(0, h);
+        cctx.lineTo(0, h * 0.66);
+        cctx.lineTo(w * 0.18, h * 0.48);
+        cctx.lineTo(w * 0.36, h * 0.62);
+        cctx.lineTo(w * 0.54, h * 0.44);
+        cctx.lineTo(w * 0.76, h * 0.60);
+        cctx.lineTo(w * 0.92, h * 0.49);
+        cctx.lineTo(w, h * 0.62);
+        cctx.lineTo(w, h);
+        cctx.closePath();
+        cctx.fill();
+
+        // Ground
+        cctx.fillStyle = '#14110F';
+        cctx.fillRect(0, h * 0.74, w, h * 0.26);
+
+        // Campfire glow
+        const cx = w * 0.5, cy = h * 0.76;
+        const fxFuel = verbFx.type === 'fuel' && verbFx.timer > 0 ? 0.35 : 0;
+        const glowR = (70 + (fire + beatBoost + fxFuel) * 145);
+        const rad = cctx.createRadialGradient(cx, cy - 16, 4, cx, cy - 16, glowR);
+        rad.addColorStop(0, `rgba(246, 178, 86, ${0.32 + fire * 0.34})`);
+        rad.addColorStop(0.5, `rgba(224, 114, 52, ${0.14 + fire * 0.16})`);
+        rad.addColorStop(1, 'rgba(0,0,0,0)');
+        cctx.fillStyle = rad;
+        cctx.beginPath();
+        cctx.arc(cx, cy - 16, glowR, 0, Math.PI * 2);
+        cctx.fill();
+
+        // Dark eyes in bushes when noise > 0.2
+        const eyeCount = Math.floor(noise * 6);
+        const scatter = verbFx.type === 'spit' && verbFx.timer > 0 ? (45 - verbFx.timer) * 2.5 : 0;
+        for (let i = 0; i < eyeCount; i++) {
+          const side = i % 2 === 0 ? -1 : 1;
+          const ex = cx + side * (w * 0.28 + (i * 22) % (w * 0.16) + scatter);
+          const ey = h * 0.72 + (i % 3) * 8;
+          const blink = Math.sin(t * 3 + i * 2.1) > -0.85 ? 1 : 0.15;
+          cctx.fillStyle = `rgba(235, 76, 66, ${0.85 * blink})`;
+          cctx.beginPath();
+          cctx.arc(ex - 4, ey, 2.2, 0, Math.PI * 2);
+          cctx.arc(ex + 4, ey, 2.2, 0, Math.PI * 2);
+          cctx.fill();
+        }
+
+        // Moving prey silhouettes
+        for (let i = 0; i < prey; i++) {
+          const px = ((t * (28 + i * 9) + i * 150) % (w + 60)) - 30;
+          const py = h * 0.67 + Math.sin(t * 4 + i) * 3;
+          cctx.fillStyle = i === 0 ? '#E8B45E' : 'rgba(232, 180, 94, 0.45)';
+          cctx.beginPath();
+          cctx.ellipse(px, py, 8, 4.5, 0, 0, Math.PI * 2);
+          cctx.fill();
+          cctx.beginPath();
+          cctx.arc(px + 7, py - 4, 3, 0, Math.PI * 2);
+          cctx.fill();
+          // Lock-on reticle for first prey when 'focus' verb triggered
+          if (i === 0 && verbFx.type === 'focus' && verbFx.timer > 0) {
+            cctx.strokeStyle = '#F6C36B';
+            cctx.lineWidth = 1.6;
+            cctx.beginPath();
+            cctx.arc(px, py, 16, 0, Math.PI * 2);
+            cctx.stroke();
+          }
+        }
+
+        // Campfire logs
+        cctx.strokeStyle = '#6E3E22';
+        cctx.lineWidth = 6;
+        cctx.lineCap = 'round';
+        cctx.beginPath();
+        cctx.moveTo(cx - 26, cy + 8); cctx.lineTo(cx + 26, cy - 2);
+        cctx.moveTo(cx - 26, cy - 2); cctx.lineTo(cx + 26, cy + 8);
+        cctx.stroke();
+
+        // Geometric multi-layered flame
+        const flameH = 22 + (fire + beatBoost + fxFuel) * 62 + Math.sin(t * 14) * 4;
+        const sway = Math.sin(t * 7) * 5;
+        cctx.fillStyle = '#D96B2B';
+        cctx.beginPath();
+        cctx.moveTo(cx - 20, cy);
+        cctx.quadraticCurveTo(cx - 18, cy - flameH * 0.55, cx + sway, cy - flameH);
+        cctx.quadraticCurveTo(cx + 18, cy - flameH * 0.55, cx + 20, cy);
+        cctx.closePath();
+        cctx.fill();
+
+        cctx.fillStyle = '#F6C36B';
+        cctx.beginPath();
+        cctx.moveTo(cx - 10, cy);
+        cctx.quadraticCurveTo(cx - 8, cy - flameH * 0.35, cx + sway * 0.6, cy - flameH * 0.62);
+        cctx.quadraticCurveTo(cx + 8, cy - flameH * 0.35, cx + 10, cy);
+        cctx.closePath();
+        cctx.fill();
+
+        // Embers
+        embers.forEach(em => {
+          em.life -= 0.018;
+          if (em.life <= 0) {
+            em.x = cx + (Math.random() - 0.5) * 26;
+            em.y = cy - 8;
+            em.vx = (Math.random() - 0.5) * 0.9;
+            em.vy = -(0.8 + Math.random() * 1.8 + fire * 1.4 + beatBoost * 2);
+            em.life = 0.6 + Math.random() * 0.7;
+          }
+          em.x += em.vx + Math.sin(t * 4 + em.y * 0.05) * 0.3;
+          em.y += em.vy;
+          cctx.fillStyle = `rgba(248, 198, 112, ${Math.max(0, em.life)})`;
+          cctx.beginPath();
+          cctx.arc(em.x, em.y, 1.8, 0, Math.PI * 2);
+          cctx.fill();
+        });
+
+        // Weather overlays
+        if (currentWeather === 'rain') {
+          cctx.strokeStyle = 'rgba(175, 205, 225, 0.32)';
+          cctx.lineWidth = 1.2;
+          drops.forEach(d => {
+            d.y += d.spd * 1.6; d.x -= d.spd * 0.25;
+            if (d.y > 1) { d.y = 0; d.x = Math.random(); }
+            if (d.x < 0) d.x = 1;
+            cctx.beginPath();
+            cctx.moveTo(d.x * w, d.y * h);
+            cctx.lineTo(d.x * w - 4, d.y * h + 13);
+            cctx.stroke();
+          });
+        } else if (currentWeather === 'winter') {
+          cctx.fillStyle = 'rgba(232, 244, 255, 0.65)';
+          drops.forEach(d => {
+            d.y += d.spd * 0.45;
+            d.x += Math.sin(t * 2 + d.y * 10) * 0.0012;
+            if (d.y > 1) { d.y = 0; d.x = Math.random(); }
+            cctx.beginPath();
+            cctx.arc(d.x * w, d.y * h, 1.8, 0, Math.PI * 2);
+            cctx.fill();
+          });
+        } else if (currentWeather === 'fog') {
+          for (let i = 0; i < 3; i++) {
+            const fx = ((t * 14 * (i + 1)) % (w + 260)) - 130;
+            const fg = cctx.createRadialGradient(fx, h * (0.45 + i * 0.14), 10, fx, h * (0.45 + i * 0.14), 160);
+            fg.addColorStop(0, 'rgba(220, 214, 204, 0.13)');
+            fg.addColorStop(1, 'rgba(220, 214, 204, 0)');
+            cctx.fillStyle = fg;
+            cctx.fillRect(0, 0, w, h);
+          }
+        }
+
+        // Verb visual FX rings
+        if (verbFx.timer > 0) {
+          const p = 1 - verbFx.timer / 45;
+          if (verbFx.type === 'retreat') {
+            cctx.strokeStyle = `rgba(232, 180, 94, ${1 - p})`;
+            cctx.lineWidth = 2.5;
+            cctx.beginPath();
+            cctx.arc(cx, cy, 55 + p * 35, Math.PI, 0);
+            cctx.stroke();
+          } else if (verbFx.type === 'spit' || verbFx.type === 'trade') {
+            cctx.strokeStyle = verbFx.type === 'spit' ? `rgba(224, 122, 66, ${1 - p})` : `rgba(110, 158, 122, ${1 - p})`;
+            cctx.lineWidth = 2;
+            cctx.beginPath();
+            cctx.arc(cx, cy - 10, 24 + p * 180, 0, Math.PI * 2);
+            cctx.stroke();
+          } else if (verbFx.type === 'sharpen') {
+            for (let i = 0; i < 6; i++) {
+              const a = -Math.PI * (0.15 + i * 0.14);
+              const d = 18 + p * 75;
+              cctx.fillStyle = `rgba(255, 226, 150, ${1 - p})`;
+              cctx.fillRect(cx + Math.cos(a) * d, cy - 20 + Math.sin(a) * d, 3, 3);
+            }
+          }
+          verbFx.timer--;
+        }
+
+        campRaf = requestAnimationFrame(drawCampFrame);
+      }
+
+      function syncCampLoop() {
+        if (currentChapter === 3) {
+          if (!campRaf) campRaf = requestAnimationFrame(drawCampFrame);
+        } else if (campRaf) {
+          cancelAnimationFrame(campRaf);
+          campRaf = null;
+        }
+      }
+
+      /* ================= CHAPTER 5: DUAL SYSTEM + STONE TABLET + CAVE WALL ================= */
+      const DUAL_INFO = {
+        primal: '<strong>何时切入原始人模式？</strong><br/>当你心跳加速、思绪打结、陷入道德自责、被同龄人比较或热搜警报淹没时。立刻剥离抽象名词，只看洞穴、柴火与唯一猎物，<strong>先止血、先降噪</strong>。',
+        modern: '<strong>何时切回现代人模式？</strong><br/>当你情绪已经稳住、精力恢复，需要做复杂系统设计、跨团队协作、精细复利计算与长周期农耕规划时。<strong>别把极简当成逃避</strong>，稳住后切回现代大脑继续建造。'
+      };
+      const dualContent = document.getElementById('c5-dual-content');
+      dualContent.innerHTML = DUAL_INFO.primal;
+      document.querySelectorAll('#c5-dual-tabs button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('#c5-dual-tabs button').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          dualContent.innerHTML = DUAL_INFO[btn.dataset.mode];
+          playStoneSfx('tap');
+        });
+      });
+
+      const C5_PRESETS = [
+        {
+          label: '深夜焦虑睡不着',
+          modern: '夜里 11 点脑子还在开会，担心工作、存款和未来，越刷手机越清醒。',
+          primal: '1. 我的洞穴不漏雨，兜里还有过冬干肉。\n2. 立刻吐掉手机里的假草丛响，关掉脑子里的警报。\n3. 今晚唯一任务是添柴睡觉，明天太阳照常亮。'
+        },
+        {
+          label: '任务太多不知从哪下手',
+          modern: '手头堆了七八件事，每件都觉得很重要，结果一整天都在拖延自责。',
+          primal: '1. 原始人绝不同时追五只兔子。\n2. 挑出最有肉吃的那一只猎物，其余先放走。\n3. 磨斧 15 分钟，立刻出洞盯紧这一只。'
+        },
+        {
+          label: '看到同龄人成就很内耗',
+          modern: '刷到别人升职加薪买大房，瞬间觉得自己进度太慢、很失败。',
+          primal: '1. 那是其他部落的篝火，不是我洞外的猛兽。\n2. 我的项目是在埋种子、养果树，长根需要季节。\n3. 缩回自己的篝火圈，把今天的火种留好。'
+        }
+      ];
+
+      const modernIn = document.getElementById('c5-modern');
+      const primalIn = document.getElementById('c5-primal');
+      const stoneDate = document.getElementById('stone-date');
+
+      function formatDateStr(d = new Date()) {
+        return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+      }
+      stoneDate.textContent = formatDateStr();
+
+      function syncStonePreview() {
+        document.getElementById('stone-modern-out').textContent = modernIn.value.trim() || '（现代烦恼原文将刻录于此）';
+        document.getElementById('stone-primal-out').textContent = primalIn.value.trim() || '用三句原始人短句，把复杂的焦虑还原成物理事实与行动指令。';
+      }
+
+      document.getElementById('c5-presets').innerHTML = C5_PRESETS.map((p, i) => `
+        <button class="pill-btn" data-p="${i}">${p.label}</button>
+      `).join('');
+      document.querySelectorAll('#c5-presets button').forEach(b => {
+        b.addEventListener('click', () => {
+          const p = C5_PRESETS[Number(b.dataset.p)];
+          modernIn.value = p.modern;
+          primalIn.value = p.primal;
+          syncStonePreview();
+          playStoneSfx('tap');
+        });
+      });
+
+      const VERB_CAPS = ['缩回', '吐掉', '盯紧', '磨斧', '换皮', '添柴'];
+      const NOUN_CAPS = ['洞穴', '篝火圈', '过冬干肉', '猎物', '假草丛响', '甜毒果', '埋种子', '留火种', '洞外下雨'];
+      function insertAtCursor(ta, text) {
+        const start = ta.selectionStart || ta.value.length;
+        const end = ta.selectionEnd || ta.value.length;
+        ta.value = ta.value.slice(0, start) + text + ta.value.slice(end);
+        ta.focus();
+        ta.setSelectionRange(start + text.length, start + text.length);
+        syncStonePreview();
+        playStoneSfx('tap');
+      }
+
+      document.getElementById('c5-verb-caps').innerHTML = VERB_CAPS.map(v => `<button type="button" class="word-cap verb">+ ${v}</button>`).join('');
+      document.getElementById('c5-noun-caps').innerHTML = NOUN_CAPS.map(n => `<button type="button" class="word-cap">+ ${n}</button>`).join('');
+      document.querySelectorAll('#c5-verb-caps .word-cap').forEach((b, i) => b.addEventListener('click', () => insertAtCursor(primalIn, VERB_CAPS[i])));
+      document.querySelectorAll('#c5-noun-caps .word-cap').forEach((b, i) => b.addEventListener('click', () => insertAtCursor(primalIn, NOUN_CAPS[i])));
+
+      modernIn.addEventListener('input', syncStonePreview);
+      primalIn.addEventListener('input', syncStonePreview);
+
+      // Load first preset initially
+      modernIn.value = C5_PRESETS[0].modern;
+      primalIn.value = C5_PRESETS[0].primal;
+      syncStonePreview();
+
+      // Cave Wall Local Archive
+      let wallItems = [];
+      try { wallItems = JSON.parse(localStorage.getItem('primal_cave_wall') || '[]'); } catch {}
+
+      function renderWall() {
+        document.getElementById('wall-count').textContent = `已刻录 ${wallItems.length} 块石板`;
+        const grid = document.getElementById('cave-wall-grid');
+        if (!wallItems.length) {
+          grid.innerHTML = `<div style="grid-column:1/-1;padding:24px;text-align:center;color:var(--text-muted);font-size:13px;">洞壁还是空的。刻录你的第一块生存石板，它会永久保存在这台设备的浏览器里。</div>`;
+          return;
+        }
+        grid.innerHTML = wallItems.map(item => `
+          <div class="wall-item">
+            <div class="wall-date">${item.date}</div>
+            <div class="wall-text">${item.primal.replace(/</g, '&lt;')}</div>
+            <div class="wall-actions">
+              <button class="secondary-btn load-wall" data-id="${item.id}" style="padding:5px 10px;font-size:12px;">回填石板</button>
+              <button class="secondary-btn del-wall" data-id="${item.id}" style="padding:5px 10px;font-size:12px;">抹除</button>
+            </div>
+          </div>
+        `).join('');
+
+        grid.querySelectorAll('.load-wall').forEach(b => {
+          b.addEventListener('click', () => {
+            const it = wallItems.find(x => x.id === b.dataset.id);
+            if (!it) return;
+            modernIn.value = it.modern;
+            primalIn.value = it.primal;
+            stoneDate.textContent = it.date;
+            syncStonePreview();
+            playStoneSfx('tap');
+            showToast('已回填到石板工作台');
+          });
+        });
+        grid.querySelectorAll('.del-wall').forEach(b => {
+          b.addEventListener('click', () => {
+            wallItems = wallItems.filter(x => x.id !== b.dataset.id);
+            localStorage.setItem('primal_cave_wall', JSON.stringify(wallItems));
+            playStoneSfx('pop');
+            renderWall();
+          });
+        });
+      }
+
+      document.getElementById('btn-save-wall').addEventListener('click', () => {
+        const primal = primalIn.value.trim();
+        if (!primal) { showToast('请先写下原始人转译内容'); return; }
+        wallItems.unshift({
+          id: 'w_' + Date.now(),
+          date: formatDateStr(),
+          modern: modernIn.value.trim(),
+          primal
+        });
+        localStorage.setItem('primal_cave_wall', JSON.stringify(wallItems));
+        playStoneSfx('carve');
+        renderWall();
+        showToast('已刻上我的洞壁！');
+      });
+
+      document.getElementById('btn-copy-text').addEventListener('click', async () => {
+        const txt = `【Primal OS 生存石板 · ${stoneDate.textContent}】\n原烦恼：${modernIn.value.trim()}\n\n${primalIn.value.trim()}\n\n♪ 《原始人不慌》`;
+        try {
+          await navigator.clipboard.writeText(txt);
+          playStoneSfx('tap');
+          showToast('已复制石板纯文本');
+        } catch {
+          showToast('复制失败，请手动选中复制');
+        }
+      });
+
+      // 2x High-DPI PNG Exporter
+      function wrapLines(ctx, text, maxW) {
+        const out = [];
+        text.split('\n').forEach(para => {
+          let line = '';
+          for (const ch of para) {
+            if (ctx.measureText(line + ch).width > maxW && line) {
+              out.push(line);
+              line = ch;
+            } else {
+              line += ch;
+            }
+          }
+          out.push(line);
+        });
+        return out;
+      }
+
+      document.getElementById('btn-export-png').addEventListener('click', () => {
+        const W = 720, scale = 2;
+        const modernTxt = modernIn.value.trim() || '（无）';
+        const primalTxt = primalIn.value.trim() || '洞穴安稳，心火不灭。';
+
+        const tmp = document.createElement('canvas');
+        const tctx = tmp.getContext('2d');
+        tctx.font = '15px -apple-system, "PingFang SC", sans-serif';
+        const mLines = wrapLines(tctx, modernTxt, W - 128);
+        tctx.font = 'bold 21px "Songti SC", "Noto Serif SC", Georgia, serif';
+        const pLines = wrapLines(tctx, primalTxt, W - 112);
+
+        const H = Math.max(460, 220 + mLines.length * 24 + pLines.length * 36);
+        const canvas = document.createElement('canvas');
+        canvas.width = W * scale;
+        canvas.height = H * scale;
+        const ctx = canvas.getContext('2d');
+        ctx.scale(scale, scale);
+
+        const bg = ctx.createLinearGradient(0, 0, W, H);
+        bg.addColorStop(0, '#211D19');
+        bg.addColorStop(1, '#14110F');
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        ctx.strokeStyle = 'rgba(232, 180, 94, 0.34)';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(20, 20, W - 40, H - 40);
+        ctx.strokeStyle = 'rgba(232, 180, 94, 0.14)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(30, 30, W - 60, H - 60);
+
+        ctx.fillStyle = '#E8B45E';
+        ctx.font = '12px ui-monospace, monospace';
+        ctx.fillText('PRIMAL TABLET · 生存石板', 56, 68);
+        ctx.textAlign = 'right';
+        ctx.fillText(stoneDate.textContent, W - 56, 68);
+        ctx.textAlign = 'left';
+
+        // Modern quote
+        let y = 108;
+        ctx.fillStyle = '#E07A42';
+        ctx.fillRect(56, y - 14, 3, mLines.length * 24 + 4);
+        ctx.fillStyle = '#A89B8E';
+        ctx.font = '15px -apple-system, "PingFang SC", sans-serif';
+        mLines.forEach(line => {
+          ctx.fillText(line, 70, y);
+          y += 24;
+        });
+
+        // Primal text
+        y += 26;
+        ctx.fillStyle = '#FAF4EC';
+        ctx.font = 'bold 21px "Songti SC", "Noto Serif SC", Georgia, serif';
+        pLines.forEach(line => {
+          ctx.fillText(line, 56, y);
+          y += 36;
+        });
+
+        // Footer
+        ctx.strokeStyle = 'rgba(242, 234, 225, 0.15)';
+        ctx.beginPath();
+        ctx.moveTo(56, H - 68);
+        ctx.lineTo(W - 56, H - 68);
+        ctx.stroke();
+
+        ctx.fillStyle = '#A89A8D';
+        ctx.font = '13px -apple-system, "PingFang SC", sans-serif';
+        ctx.fillText('♪ 《原始人不慌》 · Primal OS 2.5', 56, H - 42);
+        ctx.textAlign = 'right';
+        ctx.fillText('洞穴安稳 · 心火不灭', W - 56, H - 42);
+
+        const link = document.createElement('a');
+        link.download = `primal-tablet-${stoneDate.textContent.replace(/\./g, '-')}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        playStoneSfx('carve');
+        showToast('已导出 2x 高清 PNG 石板图');
+      });
+
+      /* ================= INIT ================= */
+      renderC1();
+      renderC2();
+      renderC3();
+      updateCampLogic();
+      renderWall();
+      goToChapter(0, true);
+    })();
+  </script>
+</body>
+</html>
